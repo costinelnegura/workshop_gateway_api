@@ -1,0 +1,37 @@
+server:
+  port: 8083
+spring:
+  application:
+    name: workshop-gateway
+  cloud:
+    gateway:
+      routes:
+        - id: user_route
+          uri: http://localhost:8085
+          predicates:
+            - Path=/v1/users/create
+          filters:
+            - PrefixPath=/api
+            - AddRequestHeader=X-Powered-By, Workshop_Gateway_API
+        - id: auth_route
+          uri: http://localhost:8085
+          predicates:
+            - Path=/v1/auth/login
+          filters:
+            - PrefixPath=/api
+            - AddRequestHeader=X-Powered-By, Workshop_Gateway_API
+  main:
+    web-application-type: reactive
+
+
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  endpoint:
+    health:
+      show-details: always
+    gateway:
+      enabled: true

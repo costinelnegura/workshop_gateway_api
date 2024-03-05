@@ -1,0 +1,16 @@
+version: '3.8'
+services:
+  server:
+    build:
+      context: .
+    environment:
+      - AUTH_ROUTE_URI=http://localhost:8085
+      - USERS_ROUTE_URI=http://localhost:8085
+#      - CUSTOMERS_ROUTE_URI=http://localhost:8081
+    ports:
+        - "8083:8083"
+    networks:
+      - workshop_users_network
+
+networks:
+  workshop_users_network:
