@@ -1,16 +1,46 @@
 version: '3.8'
 services:
-  server:
+  workshop_gateway_api:
     build:
       context: .
     environment:
-      - AUTH_ROUTE_URI=http://localhost:8085
-      - USERS_ROUTE_URI=http://localhost:8085
-#      - CUSTOMERS_ROUTE_URI=http://localhost:8081
+      - USER_ROUTE_URI=lb://WORKSHOP_USER_API
+#      - USER_ROUTE_URI=http://host.docker.internal:8085
+      - AUTH_ROUTE_URI=lb://WORKSHOP_USER_API
+#      - AUTH_ROUTE_URI=http://host.docker.internal:8085
+      - CUSTOMER_ROUTE_URI=lb://workshop_customer_api
+#      - CUSTOMER_ROUTE_URI=http://host.docker.internal:8081
+      - VEHICLE_ROUTE_URI=lb://workshop_vehicle_api
+#      - VEHICLE_ROUTE_URI=http://host.docker.internal:8082
+      - EUREKA_SERVER_URI=http://host.docker.internal:8761/eureka
+      - ZIPKIN_SERVER_URI=http://host.docker.internal:9411
+#      - RABBIT_SERVER_URI=amqp://guest:guest@host.docker.internal:5672
+#      - SPRING_RABBITMQ_HOST=host.docker.internal
+#      - SPRING_ZIPKIN_SENDER_TYPE=rabbit
+      - SERVER_PORT=8083
     ports:
         - "8083:8083"
+#    depends_on:
+#      - rabbitmq_server
     networks:
-      - workshop_users_network
+      - workshop_network
+  zipkin_server:
+    image: openzipkin/zipkin:latest
+    ports:
+      - "9411:9411"
+#    environment:
+#      - RABBIT_URI=amqp://guest:guest@host.docker.internal:5672
+#    depends_on:
+#      - rabbitmq_server
+    networks:
+      - workshop_network
+#  rabbitmq_server:
+#    image: rabbitmq:3-management
+#    ports:
+#      - "5672:5672"
+#      - "15672:15672"
+#    networks:
+#      - workshop_network
 
 networks:
-  workshop_users_network:
+  workshop_network:

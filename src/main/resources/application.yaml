@@ -1,37 +1,84 @@
 server:
-  port: 8083
+  port: ${SERVER_PORT:8083}
+
+eureka:
+  client:
+    registerWithEureka: true
+    fetchRegistry: true
+    service-url:
+      defaultZone: ${EUREKA_SERVER_URI:http://localhost:8761/eureka}
+#    healthcheck:
+#      enabled: true
+
+#deprecated_features:
+#  permit:
+#    management_metrics_collection: true
+
+#management:
+#  health:
+#    redis:
+#      enabled: false
+#    rabbit:
+#      enabled: true
+#  endpoint:
+#    metrics:
+#      enabled: true
+#    prometheus:
+#      enabled: true
+#  prometheus:
+#    metrics:
+#      export:
+#        enabled: true
+
 spring:
   application:
-    name: workshop-gateway
+    name: ${SPRING_APPLICATION_NAME:workshop_gateway_api}
   cloud:
     gateway:
+      discovery:
+        locator:
+          enabled: true
+#          lower-case-service-id: true
       routes:
         - id: user_route
-          uri: http://localhost:8085
+#          uri: ${USER_ROUTE_URI:http://localhost:8085}
+          uri: ${USER_ROUTE_URI:lb://WORKSHOP_USERS_API}
           predicates:
-            - Path=/v1/users/create
-          filters:
-            - PrefixPath=/api
-            - AddRequestHeader=X-Powered-By, Workshop_Gateway_API
+            - Path=/api/v1/users/**
         - id: auth_route
-          uri: http://localhost:8085
+#          uri: ${AUTH_ROUTE_URI:http://localhost:8085}
+          uri: ${AUTH_ROUTE_URI:lb://WORKSHOP_USERS_API}
           predicates:
-            - Path=/v1/auth/login
-          filters:
-            - PrefixPath=/api
-            - AddRequestHeader=X-Powered-By, Workshop_Gateway_API
-  main:
-    web-application-type: reactive
+            - Path=/api/v1/auth/**
+        - id: vehicle_route
+#          uri: ${VEHICLE_ROUTE_URI:http://localhost:8082}
+          uri: ${VEHICLE_ROUTE_URI:lb://WORKSHOP_VEHICLE_API}
+          predicates:
+            - Path=/api/v1/vehicle/**
+        - id: customer_route
+#          uri: ${CUSTOMER_ROUTE_URI:http://localhost:8081}
+          uri: ${CUSTOMER_ROUTE_URI:lb://WORKSHOP_CUSTOMER_API}
+          predicates:
+            - Path=/api/v1/customer/**
+#    compatibility-verifier:
+#      enabled: false
+#  zipkin:
+#    base-url: ${ZIPKIN_SERVER_URI:http://localhost:9411}
+#    sender:
+#      type: ${SPRING_ZIPKIN_SENDER_TYPE:rabbit}
+#    rabbitmq:
+#      addresses: ${RABBIT_SERVER_URI:amqp://guest:guest@localhost:5672}
+#  rabbitmq:
+#    host: ${SPRING_RABBITMQ_HOST:localhost}
+#    port: 5672
+#    username: guest
+#    password: guest
+#  main:
+#    web-application-type: reactive
+
+logging:
+  level:
+    com.netflix.eureka: DEBUG
+    com.netflix.discovery: DEBUG
 
 
-
-management:
-  endpoints:
-    web:
-      exposure:
-        include: '*'
-  endpoint:
-    health:
-      show-details: always
-    gateway:
-      enabled: true
