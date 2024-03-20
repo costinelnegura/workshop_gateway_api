@@ -38,33 +38,6 @@
 			<artifactId>spring-boot-starter-actuator</artifactId>
 		</dependency>
 <!--		<dependency>-->
-<!--			<groupId>org.springframework.cloud</groupId>-->
-<!--			<artifactId>spring-cloud-starter-sleuth</artifactId>-->
-<!--			<version>3.1.11</version>-->
-<!--		</dependency>-->
-<!--		Replacing the above dependency with the below one-->
-<!--		<dependency>-->
-<!--			<groupId>io.micrometer</groupId>-->
-<!--			<artifactId>micrometer-core</artifactId>-->
-<!--		</dependency>-->
-		<!-- https://mvnrepository.com/artifact/org.springframework.cloud/spring-cloud-sleuth-autoconfigure -->
-<!--		<dependency>-->
-<!--			<groupId>org.springframework.cloud</groupId>-->
-<!--			<artifactId>spring-cloud-sleuth-autoconfigure</artifactId>-->
-<!--			<version>3.1.11</version>-->
-<!--		</dependency>-->
-		<!-- https://mvnrepository.com/artifact/org.springframework.cloud/spring-cloud-sleuth-brave -->
-<!--		<dependency>-->
-<!--			<groupId>org.springframework.cloud</groupId>-->
-<!--			<artifactId>spring-cloud-sleuth-brave</artifactId>-->
-<!--			<version>3.1.11</version>-->
-<!--		</dependency>-->
-<!--		<dependency>-->
-<!--			<groupId>org.springframework.cloud</groupId>-->
-<!--			<artifactId>spring-cloud-sleuth-zipkin</artifactId>-->
-<!--			<version>3.1.11</version>-->
-<!--		</dependency>-->
-<!--		<dependency>-->
 <!--			<groupId>org.springframework.amqp</groupId>-->
 <!--			<artifactId>spring-rabbit</artifactId>-->
 <!--		</dependency>-->
@@ -73,16 +46,6 @@
 			<artifactId>spring-cloud-netflix-eureka-client</artifactId>
 			<version>4.1.0</version>
 		</dependency>
-
-		<!-- https://mvnrepository.com/artifact/io.netty/netty-resolver-dns-native-macos -->
-		<dependency>
-			<groupId>io.netty</groupId>
-			<artifactId>netty-resolver-dns-native-macos</artifactId>
-			<version>4.1.72.Final</version>
-			<scope>runtime</scope>
-		</dependency>
-
-
 
 	</dependencies>
 	<dependencyManagement>

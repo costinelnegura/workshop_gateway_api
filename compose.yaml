@@ -1,6 +1,7 @@
 version: '3.8'
 services:
   workshop-gateway-api:
+    image: costinelnegura/workshop-gateway-api:latest
     build:
       context: .
     environment:
@@ -24,16 +25,16 @@ services:
 #      - rabbitmq_server
     networks:
       - workshop_network
-  zipkin_server:
-    image: openzipkin/zipkin:latest
-    ports:
-      - "9411:9411"
+#  zipkin-server:
+#    image: openzipkin/zipkin:latest
+#    ports:
+#      - "9411:9411"
 #    environment:
 #      - RABBIT_URI=amqp://guest:guest@host.docker.internal:5672
 #    depends_on:
 #      - rabbitmq_server
-    networks:
-      - workshop_network
+#    networks:
+#      - workshop_network
 #  rabbitmq_server:
 #    image: rabbitmq:3-management
 #    ports:
@@ -44,3 +45,4 @@ services:
 
 networks:
   workshop_network:
+    external: true

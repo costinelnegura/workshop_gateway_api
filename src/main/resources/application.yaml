@@ -11,7 +11,7 @@ eureka:
       enabled: true
 #  instance:
 #    prefer-ip-address: true
-#    hostname: ${HOSTNAME:localhost}
+#    hostname: "localhost"
 #deprecated_features:
 #  permit:
 #    management_metrics_collection: true
@@ -47,14 +47,14 @@ spring:
           uri: ${USER_ROUTE_URI:lb://workshop-users-api}
           predicates:
             - Path=/api/v1/users/**
-        - id: -auth_route
+        - id: auth_route
 #          uri: ${AUTH_ROUTE_URI:http://localhost:8085}
           uri: ${AUTH_ROUTE_URI:lb://workshop-users-api}
           predicates:
             - Path=/api/v1/auth/**
         - id: vehicle_route
 #          uri: ${VEHICLE_ROUTE_URI:http://localhost:8082}
-          uri: ${VEHICLE_ROUTE_URI:lb://workshop-vehicle-api
+          uri: ${VEHICLE_ROUTE_URI:lb://workshop-vehicle-api}
           predicates:
             - Path=/api/v1/vehicle/**
         - id: customer_route
@@ -64,10 +64,6 @@ spring:
             - Path=/api/v1/customer/**
 #    compatibility-verifier:
 #      enabled: false
-#  zipkin:
-#    base-url: ${ZIPKIN_SERVER_URI:http://localhost:9411}
-#    sender:
-#      type: ${SPRING_ZIPKIN_SENDER_TYPE:rabbit}
 #    rabbitmq:
 #      addresses: ${RABBIT_SERVER_URI:amqp://guest:guest@localhost:5672}
 #  rabbitmq:
