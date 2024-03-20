@@ -1,16 +1,16 @@
 version: '3.8'
 services:
-  workshop_gateway_api:
+  workshop-gateway-api:
     build:
       context: .
     environment:
-      - USER_ROUTE_URI=lb://WORKSHOP_USER_API
+      - USER_ROUTE_URI=lb://workshop-users-api
 #      - USER_ROUTE_URI=http://host.docker.internal:8085
-      - AUTH_ROUTE_URI=lb://WORKSHOP_USER_API
+      - AUTH_ROUTE_URI=lb://workshop-users-api
 #      - AUTH_ROUTE_URI=http://host.docker.internal:8085
-      - CUSTOMER_ROUTE_URI=lb://workshop_customer_api
+      - CUSTOMER_ROUTE_URI=lb://workshop-customer-api
 #      - CUSTOMER_ROUTE_URI=http://host.docker.internal:8081
-      - VEHICLE_ROUTE_URI=lb://workshop_vehicle_api
+      - VEHICLE_ROUTE_URI=lb://workshop-vehicle-api
 #      - VEHICLE_ROUTE_URI=http://host.docker.internal:8082
       - EUREKA_SERVER_URI=http://host.docker.internal:8761/eureka
       - ZIPKIN_SERVER_URI=http://host.docker.internal:9411

@@ -7,9 +7,11 @@ eureka:
     fetchRegistry: true
     service-url:
       defaultZone: ${EUREKA_SERVER_URI:http://localhost:8761/eureka}
-#    healthcheck:
-#      enabled: true
-
+    healthcheck:
+      enabled: true
+#  instance:
+#    prefer-ip-address: true
+#    hostname: ${HOSTNAME:localhost}
 #deprecated_features:
 #  permit:
 #    management_metrics_collection: true
@@ -32,32 +34,32 @@ eureka:
 
 spring:
   application:
-    name: ${SPRING_APPLICATION_NAME:workshop_gateway_api}
+    name: ${SPRING_APPLICATION_NAME:workshop-gateway-api}
   cloud:
     gateway:
       discovery:
         locator:
           enabled: true
-#          lower-case-service-id: true
+          lower-case-service-id: true
       routes:
         - id: user_route
 #          uri: ${USER_ROUTE_URI:http://localhost:8085}
-          uri: ${USER_ROUTE_URI:lb://WORKSHOP_USERS_API}
+          uri: ${USER_ROUTE_URI:lb://workshop-users-api}
           predicates:
             - Path=/api/v1/users/**
-        - id: auth_route
+        - id: -auth_route
 #          uri: ${AUTH_ROUTE_URI:http://localhost:8085}
-          uri: ${AUTH_ROUTE_URI:lb://WORKSHOP_USERS_API}
+          uri: ${AUTH_ROUTE_URI:lb://workshop-users-api}
           predicates:
             - Path=/api/v1/auth/**
         - id: vehicle_route
 #          uri: ${VEHICLE_ROUTE_URI:http://localhost:8082}
-          uri: ${VEHICLE_ROUTE_URI:lb://WORKSHOP_VEHICLE_API}
+          uri: ${VEHICLE_ROUTE_URI:lb://workshop-vehicle-api
           predicates:
             - Path=/api/v1/vehicle/**
         - id: customer_route
 #          uri: ${CUSTOMER_ROUTE_URI:http://localhost:8081}
-          uri: ${CUSTOMER_ROUTE_URI:lb://WORKSHOP_CUSTOMER_API}
+          uri: ${CUSTOMER_ROUTE_URI:lb://workshop-customer-api}
           predicates:
             - Path=/api/v1/customer/**
 #    compatibility-verifier:
@@ -76,9 +78,14 @@ spring:
 #  main:
 #    web-application-type: reactive
 
-logging:
-  level:
-    com.netflix.eureka: DEBUG
-    com.netflix.discovery: DEBUG
+#logging:
+#  pattern:
+#    console: "%d{yyyy-MM-dd HH:mm:ss} [%X{traceId:-},%X{spanId:-}] ${LOG_LEVEL_PATTERN:-%5p} %m%n"
+#  level:
+#    springframework:
+#      boot:
+#        autoconfigure: DEBUG
+#    web: DEBUG
+#    root: DEBUG
 
 
