@@ -9,9 +9,9 @@ services:
 #      - USER_ROUTE_URI=http://host.docker.internal:8085
       - AUTH_ROUTE_URI=lb://workshop-users-api
 #      - AUTH_ROUTE_URI=http://host.docker.internal:8085
-      - CUSTOMER_ROUTE_URI=lb://workshop-customer-api
+      - CUSTOMER_ROUTE_URI=lb://workshop-customers-api
 #      - CUSTOMER_ROUTE_URI=http://host.docker.internal:8081
-      - VEHICLE_ROUTE_URI=lb://workshop-vehicle-api
+      - VEHICLE_ROUTE_URI=lb://workshop-vehicles-api
 #      - VEHICLE_ROUTE_URI=http://host.docker.internal:8082
       - EUREKA_SERVER_URI=http://host.docker.internal:8761/eureka
       - ZIPKIN_SERVER_URI=http://host.docker.internal:9411

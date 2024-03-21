@@ -54,12 +54,12 @@ spring:
             - Path=/api/v1/auth/**
         - id: vehicle_route
 #          uri: ${VEHICLE_ROUTE_URI:http://localhost:8082}
-          uri: ${VEHICLE_ROUTE_URI:lb://workshop-vehicle-api}
+          uri: ${VEHICLE_ROUTE_URI:lb://workshop-vehicles-api}
           predicates:
             - Path=/api/v1/vehicle/**
         - id: customer_route
 #          uri: ${CUSTOMER_ROUTE_URI:http://localhost:8081}
-          uri: ${CUSTOMER_ROUTE_URI:lb://workshop-customer-api}
+          uri: ${CUSTOMER_ROUTE_URI:lb://workshop-customers-api}
           predicates:
             - Path=/api/v1/customer/**
 #    compatibility-verifier:
